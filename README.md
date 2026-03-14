@@ -120,8 +120,13 @@ npm start
 
 ## Demo Login
 
-- Email: `shubhmak1333@gmail.com`
-- Password: `123456`
+- Select the role on the login page before signing in.
+- Inventory Manager:
+  - Email: `shubhmak1333@gmail.com`
+  - Password: `123456`
+- Warehouse Staff:
+  - Email: `staff@coreinventory.local`
+  - Password: `123456`
 
 ## Health Check
 

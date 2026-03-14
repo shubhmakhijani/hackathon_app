@@ -75,26 +75,40 @@ async function seed() {
   await db.withTransaction(async (client) => {
     let userId;
     const demoPasswordHash = bcrypt.hashSync("123456", 10);
-    const existingUser = await get("SELECT id FROM users WHERE email = $1", ["shubhmak1333@gmail.com"], client);
-    if (existingUser) {
-      userId = existingUser.id;
-      await db.query(
-        "UPDATE users SET name = $1, password_hash = $2, role = 'manager' WHERE id = $3",
-        ["SHUBH MAKHIJANI", demoPasswordHash, userId],
-        client
-      );
-      console.log("  User already exists, refreshed demo credentials.");
-    } else {
+    const ensureDemoUser = async ({ name, email, role }) => {
+      const existingUser = await get("SELECT id FROM users WHERE email = $1", [email], client);
+      if (existingUser) {
+        await db.query(
+          "UPDATE users SET name = $1, password_hash = $2, role = $3 WHERE id = $4",
+          [name, demoPasswordHash, role, existingUser.id],
+          client
+        );
+        console.log(`  Refreshed ${role} user: ${email}`);
+        return existingUser.id;
+      }
+
       const createdUser = await insert(
         `INSERT INTO users(name, email, password_hash, role)
-         VALUES ($1, $2, $3, 'manager')
+         VALUES ($1, $2, $3, $4)
          RETURNING id`,
-        ["SHUBH MAKHIJANI", "shubhmak1333@gmail.com", demoPasswordHash],
+        [name, email, demoPasswordHash, role],
         client
       );
-      userId = createdUser.id;
-      console.log(`  Created user: SHUBH MAKHIJANI (id=${userId})`);
-    }
+      console.log(`  Created ${role} user: ${email} (id=${createdUser.id})`);
+      return createdUser.id;
+    };
+
+    userId = await ensureDemoUser({
+      name: "SHUBH MAKHIJANI",
+      email: "shubhmak1333@gmail.com",
+      role: "manager",
+    });
+
+    await ensureDemoUser({
+      name: "WAREHOUSE STAFF",
+      email: "staff@coreinventory.local",
+      role: "staff",
+    });
 
     await getOrCreate(
       "warehouses",
@@ -353,7 +367,8 @@ async function seed() {
 
     console.log("  Operations & ledger entries created.");
     console.log("\n✅  Seed complete!");
-    console.log("   Login → email: shubhmak1333@gmail.com  |  password: 123456");
+    console.log("   Inventory Manager → email: shubhmak1333@gmail.com  |  password: 123456");
+    console.log("   Warehouse Staff   → email: staff@coreinventory.local |  password: 123456");
   });
 }
 

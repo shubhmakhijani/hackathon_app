@@ -6,6 +6,7 @@ import { useAuth } from "../AuthContext";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("manager");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -14,7 +15,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     try {
-      const { data } = await api.post("/auth/login", { email, password });
+      const { data } = await api.post("/auth/login", { email, password, role });
       login(data.token, data.user);
       navigate("/dashboard");
     } catch (err) {
@@ -38,6 +39,13 @@ export default function LoginPage() {
         <div className="form-field">
           <label className="form-label">Password</label>
           <input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <div className="form-field">
+          <label className="form-label">Login As</label>
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="manager">Inventory Manager</option>
+            <option value="staff">Warehouse Staff</option>
+          </select>
         </div>
         <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }}>Sign in</button>
         <hr className="auth-divider" />

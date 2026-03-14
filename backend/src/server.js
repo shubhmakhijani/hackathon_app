@@ -211,16 +211,20 @@ app.post("/api/auth/login", authRateLimit, asyncHandler(async (req, res) => {
   const schema = z.object({
     email: z.email().trim().toLowerCase(),
     password: z.string().min(1).max(128),
+    role: z.enum(ROLES),
   });
   const parsed = withSchema(schema, req.body);
   if (!parsed.ok) {
     return res.status(400).json(parsed.error);
   }
 
-  const { email, password } = parsed.data;
+  const { email, password, role } = parsed.data;
   const user = await db.getOne("SELECT * FROM users WHERE email = $1", [email]);
   if (!user || !bcrypt.compareSync(password, user.password_hash)) {
     return res.status(401).json({ message: "Invalid credentials" });
+  }
+  if (user.role !== role) {
+    return res.status(401).json({ message: "Role does not match this account" });
   }
 
   const token = jwt.sign({ id: user.id, name: user.name, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "7d" });
