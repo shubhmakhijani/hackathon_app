@@ -7,13 +7,15 @@ We built it as a full-stack project with React on the frontend, Express on the b
 ## Screenshots
 
 ### Dashboard
-![Inventory Dashboard](screenshots/dashboard.png)
+![Inventory Dashboard - Latest](screenshots/dashboard-latest.png)
 
 ### Operations
-![All Operations](screenshots/operations.png)
+![All Operations - Latest](screenshots/operations-latest.png)
 
 ### Warehouse Settings
-![Warehouse Settings](screenshots/warehouse-settings.png)
+![Warehouse Settings - Latest](screenshots/warehouse-settings-latest.png)
+
+You can replace these files anytime with new screenshots while keeping the same filenames.
 
 ## PostgreSQL Proof (psql)
 
