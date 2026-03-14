@@ -6,27 +6,23 @@ It helps teams manage products, warehouses, stock movement, and inventory tracea
 
 ## Screenshots
 
-### App Preview
+### Dashboard
 
-![CoreInventory App Preview](frontend/src/assets/hero.png)
+![Inventory Dashboard](screenshots/dashboard.png)
 
-### Suggested Judge Screenshots (Replace/Add)
+### Operations
 
-For best judge readability, add these screenshots to your repo and reference them here:
+![All Operations](screenshots/operations.png)
 
-- Login page
-- Dashboard KPIs
-- Products page with stock
-- Operations page with a validated transaction
-- PostgreSQL query output proving DB persistence
+### Warehouse Settings
 
-Tip: create a folder named `screenshots/` at project root and store images like:
+![Warehouse Settings](screenshots/warehouse-settings.png)
 
-- `screenshots/login.png`
-- `screenshots/dashboard.png`
-- `screenshots/products.png`
-- `screenshots/operations.png`
-- `screenshots/database-proof.png`
+Note: Place your uploaded images in the root `screenshots/` folder with these exact names:
+
+- `dashboard.png`
+- `operations.png`
+- `warehouse-settings.png`
 
 ## What We Built
 
