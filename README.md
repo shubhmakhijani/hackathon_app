@@ -15,6 +15,46 @@ We built it as a full-stack project with React on the frontend, Express on the b
 ### Warehouse Settings
 ![Warehouse Settings](screenshots/warehouse-settings.png)
 
+## PostgreSQL Proof (psql)
+
+To make it explicit that the app is using PostgreSQL, we run these commands on the local database.
+
+### Command 1
+
+```powershell
+$env:PGPASSWORD='postgres'
+& 'C:\Program Files\PostgreSQL\17\bin\psql.exe' -U postgres -h localhost -w -d coreinventory -P pager=off -c "SELECT current_database() AS db, COUNT(*)::int AS product_count FROM products;"
+```
+
+### Output
+
+```text
+	db       | product_count
+---------------+---------------
+ coreinventory |            10
+(1 row)
+```
+
+### Command 2
+
+```powershell
+$env:PGPASSWORD='postgres'
+& 'C:\Program Files\PostgreSQL\17\bin\psql.exe' -U postgres -h localhost -w -d coreinventory -P pager=off -c "SELECT id, type, status, customer FROM operations ORDER BY id DESC LIMIT 5;"
+```
+
+### Output
+
+```text
+ id |    type    | status |    customer
+----+------------+--------+----------------
+ 10 | Delivery   | Done   | aayush shah
+  9 | Delivery   | Ready  | Metro Build Co
+  8 | Adjustment | Done   |
+  7 | Adjustment | Done   |
+  6 | Internal   | Draft  |
+(5 rows)
+```
+
 ## What the App Covers
 
 - Authentication (signup, login, reset password with OTP)
