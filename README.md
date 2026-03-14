@@ -4,6 +4,30 @@ CoreInventory is a full-stack inventory management application built for hackath
 
 It helps teams manage products, warehouses, stock movement, and inventory traceability with a clean UI and a PostgreSQL-backed API.
 
+## Screenshots
+
+### App Preview
+
+![CoreInventory App Preview](frontend/src/assets/hero.png)
+
+### Suggested Judge Screenshots (Replace/Add)
+
+For best judge readability, add these screenshots to your repo and reference them here:
+
+- Login page
+- Dashboard KPIs
+- Products page with stock
+- Operations page with a validated transaction
+- PostgreSQL query output proving DB persistence
+
+Tip: create a folder named `screenshots/` at project root and store images like:
+
+- `screenshots/login.png`
+- `screenshots/dashboard.png`
+- `screenshots/products.png`
+- `screenshots/operations.png`
+- `screenshots/database-proof.png`
+
 ## What We Built
 
 CoreInventory supports the core warehouse/inventory workflow:
